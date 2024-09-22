@@ -21,7 +21,9 @@ function App() {
   };
 
   const handleEmailChange = (e) => {
-    setFormValues({ ...formValues, email: e.target.value });
+    const newEmail = e.target.value;
+    setFormValues({ ...formValues, email: newEmail });
+    setEmailValid(validateEmail(newEmail)); // Valida el email en cada cambio
   };
 
   const handlePasswordChange = (e) => {
@@ -57,9 +59,9 @@ function App() {
             placeholder="Enter email"
             onChange={handleEmailChange}
             value={formValues.email}
-            isInvalid={!emailValid && submitClicked} // Muestra el error solo si se hizo submit y es inválido
+            isInvalid={!emailValid} // Valida en tiempo real si el email es inválido
           />
-          { !emailValid && submitClicked && (
+          { !emailValid && (
             <Form.Text className="text-danger">Your email should follow an established format.</Form.Text>
           )}
         </Form.Group>
